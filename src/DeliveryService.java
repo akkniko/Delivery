@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
 public class DeliveryService{
-    ArrayList<Courier> couriers = new ArrayList<>();
-    ArrayList<Order> orders = new ArrayList<>();
+    private ArrayList<Courier> couriers = new ArrayList<>();
+    private ArrayList<Order> orders = new ArrayList<>();
 /*
 Метод регистрации курьера: принимает объект курьера и добавляет его в общий список.
 
