@@ -13,11 +13,11 @@ public class Courier{
         this.cash = 0;
     }
 
-    String GetName(){
+    String getName(){
         return this.name;
     }
 
-    int GetId(){
+    int getId(){
         return this.id;
     }
 
@@ -25,23 +25,23 @@ public class Courier{
         return this.isBusy;
     }
 
-    double GetCash(){
+    double getCash(){
         return this.cash;
     }
 
-    CourierType GetType(){
+    CourierType getType(){
         return this.type;
     }
 
-    void SetIsBusy(boolean b){
+    void setIsBusy(boolean b){
         this.isBusy = b;
     }
 
-    void IncreaseCash(double amount){
+    void increaseCash(double amount){
         this.cash += amount; 
     }
 
-    void ChangeBStatus(){
+    void changeBStatus(){
        this.isBusy = !this.isBusy;
     }
 }

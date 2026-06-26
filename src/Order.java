@@ -4,37 +4,43 @@ public class Order{
     private String name;
     private double weight;
     private OrderStatus status = OrderStatus.CREATED;
+    private double price;
 
-    public Order(int id, String name, double w) {
+    public Order(int id, String name, double w, double price) {
         this.id = id;
         this.name = name;
         this.weight = w;
+        this.price = price;
         // this.status = st;
     }
 
-    public Order(int id, String name, double w, OrderStatus st) {
-        this(id, name, w); //конструктор верхний с id,name, w 
+    public Order(int id, String name, double w, OrderStatus st, double price) {
+        this(id, name, w, price); //конструктор верхний с id,name, w 
         this.status = st;  
     }
 
-    void SetStatus(OrderStatus st){
+    void setStatus(OrderStatus st){
         this.status = st;
         System.out.println("Setter was activated, status has been changed");
     }
 
-    double GetWeight(){
+    double getWeight(){
         return this.weight;
     }
 
-    String GetName(){
+    String getName(){
         return this.name;
     }
 
-    int GetId(){
+    int getId(){
         return this.id;
     }
 
-    OrderStatus GetStatus(){
+    double getPrice(){
+        return this.price;
+    }
+
+    OrderStatus getStatus(){
         return this.status;
     }
 
