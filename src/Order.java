@@ -1,21 +1,20 @@
 public class Order{
-
-    private int id;
+    private static int count = 1;
+    private final int id;
     private String name;
     private double weight;
     private OrderStatus status = OrderStatus.CREATED;
     private double price;
 
-    public Order(int id, String name, double w, double price) {
-        this.id = id;
+    public Order(String name, double w, double price) {
+        this.id = count++;
         this.name = name;
         this.weight = w;
         this.price = price;
-        // this.status = st;
     }
 
-    public Order(int id, String name, double w, OrderStatus st, double price) {
-        this(id, name, w, price); //конструктор верхний с id,name, w 
+    public Order(String name, double w, OrderStatus st, double price) {
+        this(name, w, price); //конструктор верхний с id, name, w
         this.status = st;  
     }
 
