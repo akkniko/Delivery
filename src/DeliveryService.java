@@ -1,9 +1,12 @@
-import java.util.*;
+import java.util.Optional;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class DeliveryService{
-    private ArrayList<Courier> couriers = new ArrayList<>();
-    private ArrayList<Order> orders = new ArrayList<>();
-    private HashMap<Integer, Courier> map = new HashMap<>();
+    private final List<Courier> couriers = new ArrayList<>();
+    private final List<Order> orders = new ArrayList<>();
+    private final HashMap<Integer, Courier> map = new HashMap<>();
 
 /*
 Метод регистрации курьера: принимает объект курьера и добавляет его в общий список.
@@ -18,44 +21,44 @@ public class DeliveryService{
         }
         else{
             couriers.add(cr);
+            System.out.println("Courier " + cr.getName() + " was registered");
         }
     }
 
-    Courier findCourier(Order o){
-        for(Courier c : couriers){
-            if(o.getWeight() <= c.getType().getMaxW() && !c.isBusy()){
-                return c;
-            }
-        }
-        return null;
+    Optional<Courier> findCourier(Order o){
+        //todo: search with stream api
+        return couriers.stream()
+                .filter(t-> o.getWeight() <= t.getType().getMaxW() && !t.isBusy())
+                .findFirst();
     }
 
-    void makeOrder(double price, double w, int id, String name){
-        Order o = new Order(id, name, w,price);
-        Courier c;
-        if(!orders.contains(o)){
-            orders.add(o);
-            c = findCourier(o);  //назначаю курьера на этот заказ
-            if(c != null){
-                c.setIsBusy(true);  //меняю его флаг занятости
-                o.setStatus(OrderStatus.DELIVERING);
-                map.put(o.getId(), c);
-            }
-            else{
-                o.setStatus(OrderStatus.CREATED);
-            }
-        }
-        else{
-            System.out.println("This order is already exist! ");
-        }
-    }
+    Order makeOrder(double price, double w, String name) {
+        Order o = new Order(name, w, price);
+        Optional<Courier> c = findCourier(o);
 
+            c.ifPresentOrElse(
+                    t -> {
+                        t.setIsBusy(true);
+                        o.setStatus(OrderStatus.DELIVERING);
+                        map.put(o.getId(), t);
+                        System.out.println("order " + o.getName() + "  delivering! ");
+                    },
+                    () -> {
+                        o.setStatus(OrderStatus.CREATED);
+                        System.out.println("order " + o.getName() + "  created! ");
+                    }
+            );
+
+        return o;
+    }
 
     void destinDelivery(int id){
-        //todo: exceptions
+        //todo: exceptions, stream api
         for(Order o : orders){
             if(id == o.getId()){
                 o.setStatus(OrderStatus.DELIVERED);
+                System.out.println("Order " + o.getName() + " has been delivered");
+                
                 Courier c = map.get(o.getId());
                 if(c != null){
                     c.changeBStatus();
