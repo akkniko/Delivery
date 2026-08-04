@@ -12,7 +12,7 @@ public class Main{
         ds.curRegistration(c3);
         ds.curRegistration(c4);
         
-        Order o = ds.makeOrder(100, 10, 1, "bk");
+        Order o = ds.makeOrder(100, 10, "bk");
         ds.destinDelivery(o.getId());
 
 
