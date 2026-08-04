@@ -1,12 +1,13 @@
 public class Courier{
-    private int id;
+    private static int count = 1;
+    private final int id;
     private String name;
     private CourierType type; 
     private boolean isBusy;
     private double cash;
 
-    public Courier(int id, String name, CourierType tp){
-        this.id = id;
+    public Courier(String name, CourierType tp){
+        this.id = count++;
         this.name= name;
         this.type = tp;
         this.isBusy = false;
