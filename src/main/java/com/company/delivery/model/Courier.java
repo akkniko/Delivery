@@ -38,10 +38,6 @@ public class Courier{
         return this.type;
     }
 
-    public  void setIsBusy(boolean b){
-        this.isBusy = b;
-    }
-
     public void increaseCash(double amount){
         this.cash += amount; 
     }
