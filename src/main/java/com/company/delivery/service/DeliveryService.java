@@ -41,6 +41,8 @@ public class DeliveryService{
 
     public Order makeOrder(double price, double w, String name) {
         Order o = new Order(name, w, price);
+        if(!orders.contains(o)) orders.add(o);
+
         Optional<Courier> c = findCourier(o);
 
             c.ifPresentOrElse(
@@ -78,6 +80,5 @@ public class DeliveryService{
                         System.out.println("The order hadn't had an assigned courier\n");
                         }
                     });
-
     }
 }
