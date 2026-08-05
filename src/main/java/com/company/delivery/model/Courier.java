@@ -1,5 +1,7 @@
 package com.company.delivery.model;
 
+import java.util.Objects;
+
 public class Courier{
     private static int count = 1;
     private final int id;
@@ -55,4 +57,26 @@ public class Courier{
         }
         this.isBusy = true;
     };
+
+    @Override
+    public String toString(){
+        return "id: "          + getId()
+                + " name: "    + getName()
+                + " type: "    + getType()
+                + " balance: " + getCash();
+    };
+
+    @Override
+    public int hashCode(){
+        return Objects.hash(getName(), getId());
+    }
+
+    @Override
+    public boolean equals(Object otherObj){
+        if(this == otherObj) return true;
+        if(otherObj == null) return false;
+        if(this.getClass() != otherObj.getClass()) return false;
+        return Objects.equals(getId(), ((Courier) otherObj).getId())
+                && Objects.equals(getName(), ((Courier) otherObj).getName());
+    }
 }
