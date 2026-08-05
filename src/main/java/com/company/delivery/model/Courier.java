@@ -6,9 +6,11 @@ public class Courier{
     private final String name;
     private final CourierType type;
     private boolean isBusy;
+
     private double cash;
 
     public Courier(String name, CourierType tp){
+//        this.markFree()
         this.id = count++;
         this.name= name;
         this.type = tp;
@@ -44,7 +46,17 @@ public class Courier{
         this.cash += amount; 
     }
 
-    public void changeBStatus(){
-       this.isBusy = !this.isBusy;
-    }
+    public void markFree(){
+        if(!this.isBusy){
+            throw new IllegalStateException("courier already is free");
+        }
+        this.isBusy = false;
+    };
+
+    public void markBusy(){
+        if(this.isBusy){
+            throw new IllegalStateException("courier already is busy");
+        }
+        this.isBusy = true;
+    };
 }
