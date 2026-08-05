@@ -59,23 +59,25 @@ public class DeliveryService{
         return o;
     }
 
-    public void destinDelivery(int id){
+    public void destinDelivery(int id) {
         //todo: exceptions, stream api
-        for(Order o : orders){
-            if(id == o.getId()){
-                o.setStatus(OrderStatus.DELIVERED);
-                System.out.println("Order " + o.getName() + " has been delivered");
-                
-                Courier c = map.get(o.getId());
-                if(c != null){
-                    c.markFree();
-                    c.increaseCash(o.getPrice()/10);
-                }
-                else{
-                    System.out.println("The order hadn't had an assigned courier ");
-                }
-                break;
-            }
-        }
+        orders.stream().
+                filter(t -> t.getId() == id)
+                .findFirst()
+                .ifPresent(c ->
+                        {
+                    c.setStatus(OrderStatus.DELIVERED);
+                    System.out.println("Order " + c.getName() + " id: " + c.getId() + " delivered");
+
+                    Courier k = map.get(c.getId());
+                    if(k != null) {
+                        k.markFree();
+                        k.increaseCash(c.getPrice() / 10);
+                    }
+                    else{
+                        System.out.println("The order hadn't had an assigned courier\n");
+                        }
+                    });
+
     }
 }
