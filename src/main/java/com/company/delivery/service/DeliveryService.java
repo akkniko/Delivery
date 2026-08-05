@@ -45,7 +45,7 @@ public class DeliveryService{
 
             c.ifPresentOrElse(
                     t -> {
-                        t.setIsBusy(true);
+                        t.markBusy();
                         o.setStatus(OrderStatus.DELIVERING);
                         map.put(o.getId(), t);
                         System.out.println("order " + o.getName() + "  delivering! ");
@@ -68,7 +68,7 @@ public class DeliveryService{
                 
                 Courier c = map.get(o.getId());
                 if(c != null){
-                    c.changeBStatus();
+                    c.markFree();
                     c.increaseCash(o.getPrice()/10);
                 }
                 else{
