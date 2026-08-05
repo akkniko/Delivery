@@ -2,6 +2,8 @@ package com.company.delivery.model;
 
 import com.company.delivery.model.OrderStatus;
 
+import java.util.Objects;
+
 public class Order{
     private static int count = 1;
     private final int id;
@@ -47,4 +49,27 @@ public class Order{
         return this.status;
     }
 
+    public String toString(){
+        return    " id: "       + getId()
+                + " name: "     + getName()
+                + " price: "    + getPrice()
+                + " status: "   + getStatus()
+                + " weight: "   + getWeight();
+    }
+
+    @Override
+    public int hashCode(){
+        return Objects.hash(getId(), getName(), getPrice(), getWeight());
+    }
+
+    @Override
+    public boolean equals(Object otherObj){
+        if(this == otherObj) return true;
+        if(otherObj == null) return false;
+        if(this.getClass() != otherObj.getClass()) return false;
+        return Objects.equals(getId(), ((Order) otherObj).getId())
+                && Objects.equals(getName(), ((Order) otherObj).getName())
+                && Objects.equals(getPrice(), ((Order) otherObj).getPrice())
+                && Objects.equals(getWeight(), ((Order) otherObj).getWeight());
+    }
 }
