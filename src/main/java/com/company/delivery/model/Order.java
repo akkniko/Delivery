@@ -1,7 +1,5 @@
 package com.company.delivery.model;
 
-import com.company.delivery.model.OrderStatus;
-
 import java.util.Objects;
 
 public class Order{
@@ -57,9 +55,10 @@ public class Order{
                 + " weight: "   + getWeight();
     }
 
+
     @Override
     public int hashCode(){
-        return Objects.hash(getId(), getName(), getPrice(), getWeight());
+        return Objects.hash(getId());
     }
 
     @Override
@@ -67,9 +66,6 @@ public class Order{
         if(this == otherObj) return true;
         if(otherObj == null) return false;
         if(this.getClass() != otherObj.getClass()) return false;
-        return Objects.equals(getId(), ((Order) otherObj).getId())
-                && Objects.equals(getName(), ((Order) otherObj).getName())
-                && Objects.equals(getPrice(), ((Order) otherObj).getPrice())
-                && Objects.equals(getWeight(), ((Order) otherObj).getWeight());
+        return Objects.equals(getId(), ((Order) otherObj).getId());
     }
 }

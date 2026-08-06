@@ -8,11 +8,9 @@ public class Courier{
     private final String name;
     private final CourierType type;
     private boolean isBusy;
-
     private double cash;
 
     public Courier(String name, CourierType tp){
-//        this.markFree()
         this.id = count++;
         this.name= name;
         this.type = tp;
@@ -68,7 +66,7 @@ public class Courier{
 
     @Override
     public int hashCode(){
-        return Objects.hash(getName(), getId());
+        return Objects.hash(getId());
     }
 
     @Override
@@ -76,7 +74,6 @@ public class Courier{
         if(this == otherObj) return true;
         if(otherObj == null) return false;
         if(this.getClass() != otherObj.getClass()) return false;
-        return Objects.equals(getId(), ((Courier) otherObj).getId())
-                && Objects.equals(getName(), ((Courier) otherObj).getName());
+        return Objects.equals(getId(), ((Courier) otherObj).getId());
     }
 }
