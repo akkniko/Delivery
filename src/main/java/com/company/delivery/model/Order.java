@@ -35,11 +35,6 @@ public class Order{
         this.status = st;  
     }
 
-    public void setStatus(OrderStatus st){
-        this.status = st;
-        System.out.println("Setter was activated, status has been changed");
-    }
-
     public double getWeight(){
         return this.weight;
     }
@@ -58,6 +53,22 @@ public class Order{
 
     OrderStatus getStatus(){
         return this.status;
+    }
+
+    public void startDelivery(){
+        if(status == OrderStatus.CREATED){
+            this.status = OrderStatus.DELIVERING;
+        }
+        else throw new IllegalStateException("Order can't be Delivering");
+    }
+
+    public void completeDelivery(){
+        if(status == OrderStatus.DELIVERING){
+            this.status = OrderStatus.DELIVERED;
+        }
+        else{
+            throw new IllegalStateException("Order can't be delivered");
+        }
     }
 
     public String toString(){

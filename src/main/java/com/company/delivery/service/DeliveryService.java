@@ -23,6 +23,7 @@ public class DeliveryService{
 Метод завершения доставки: принимает ID заказа. Находит этот заказ, меняет статус на DELIVERING -> DELIVERED. Находит курьера, который его вез, начисляет ему на баланс, например, 10% от стоимости заказа, и переводит курьера в статус «свободен».
 */
 
+
     public void registerCourier(Courier cr){
         if(couriers.contains(cr)){
             System.out.println("this courier is already in list");
@@ -36,7 +37,7 @@ public class DeliveryService{
     public Optional<Courier> findCourier(Order o){
         //todo: search with stream api
         return couriers.stream()
-                .filter(t-> o.getWeight() <= t.getType().getMaxW() && !t.isBusy())
+                .filter(t-> o.getWeight() <= t.getType().getMaxWeight() && !t.isBusy())
                 .findFirst();
     }
 
@@ -49,12 +50,11 @@ public class DeliveryService{
             c.ifPresentOrElse(
                     t -> {
                         t.markBusy();
-                        o.setStatus(OrderStatus.DELIVERING);
+                        o.startDelivery();
                         assignedCourier.put(o.getId(), t);
                         System.out.println("order " + o.getName() + "  delivering! ");
                     },
                     () -> {
-                        o.setStatus(OrderStatus.CREATED);
                         System.out.println("order " + o.getName() + "  created! ");
                     }
             );
@@ -69,7 +69,7 @@ public class DeliveryService{
                 .findFirst()
                 .ifPresent(c ->
                         {
-                    c.setStatus(OrderStatus.DELIVERED);
+                    c.completeDelivery();
                     System.out.println("Order " + c.getName() + " id: " + c.getId() + " delivered");
 
                     Courier k = assignedCourier.get(c.getId());
@@ -82,4 +82,11 @@ public class DeliveryService{
                         }
                     });
     }
+
+    public Optional<Order> findOrderByID(int id){
+        return orders.stream().filter(t -> t.getId() == id).findFirst();
+    }
+
+
+
 }
