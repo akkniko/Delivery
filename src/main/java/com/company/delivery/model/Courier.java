@@ -10,7 +10,23 @@ public class Courier{
     private boolean isBusy;
     private double cash;
 
-    public Courier(String name, CourierType tp){
+    public Courier(String name, CourierType tp) {
+        if (name.isEmpty() || name == null){
+            throw new IllegalArgumentException("name must be not zero!");
+        }
+
+        if (name.getClass() != String.class){
+            throw new IllegalArgumentException("name must be string");
+        }
+
+        if(tp.getClass() != CourierType.class) {
+            throw new IllegalArgumentException("type must belongs to CourierType ");
+        }
+
+        if(tp == null) {
+            throw new IllegalArgumentException("type must be not zero!");
+        }
+
         this.id = count++;
         this.name= name;
         this.type = tp;

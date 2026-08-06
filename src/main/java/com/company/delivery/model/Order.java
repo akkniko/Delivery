@@ -10,10 +10,23 @@ public class Order{
     private OrderStatus status = OrderStatus.CREATED;
     private final double price;
 
-    public Order(String name, double w, double price) {
+    public Order(String name, double weight, double price) {
+        if (name.isEmpty()){
+            throw new IllegalArgumentException("name must be not zero!");
+        }
+
+        if(weight <= 0 ) {
+            throw new IllegalArgumentException("weight must be > 0");
+        }
+
+        if(price <= 0 ) {
+            throw new IllegalArgumentException("price must be > 0");
+        }
+
+
         this.id = count++;
         this.name = name;
-        this.weight = w;
+        this.weight = weight;
         this.price = price;
     }
 
@@ -31,7 +44,7 @@ public class Order{
         return this.weight;
     }
 
-    public   String getName(){
+    public  String getName(){
         return this.name;
     }
 
@@ -54,7 +67,6 @@ public class Order{
                 + " status: "   + getStatus()
                 + " weight: "   + getWeight();
     }
-
 
     @Override
     public int hashCode(){
